@@ -2,23 +2,38 @@
 
 namespace Statamic\Addons\ShowOnce;
 
+use Log;
 use Statamic\API\User;
 use Statamic\Extend\Tags;
 
 class ShowOnceTags extends Tags
 {
     /**
-     * The {{ show_once }} tag
+     * The {{ show_once }} tag by itself does nothing, you need a code
      *
      * @return string|array
      */
     public function index()
     {
-        $code = $this->get('code');
+		Log::error("No 'code' used");
+       	return $this->parse([]);;
+    }
+
+    /**
+     * Maps to `{{ show_once:[code] }}`
+     *
+     * @param string $code  The code to use
+     * @param array  $args
+     * @return string
+     */
+    public function __call($method, $args)
+    {
+    	list($ignored, $code) = explode(':', $this->tag);
         
         // if no code then do nothing and show everything;
         if (!$code)
         {
+			Log::error("No 'code' used");
         	return $this->parse([]);;
         }
         
@@ -57,12 +72,9 @@ class ShowOnceTags extends Tags
         else
         {	// if they're not logged in, use a cookie
         	$key = $this->getAddonClassName() . '_' . $code;
-        	
-        	// get the cookie
-        	$cookie = $this->cookie->get($key);
-        	
+        	        	
         	// if there's no cookie, it means they've never seen it
-        	if (!$cookie)
+        	if (!$this->cookie->get($key))
         	{
         		// they're going to see it, so create the cookie
         		$this->cookie->put($key, time());
