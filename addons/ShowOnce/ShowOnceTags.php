@@ -29,6 +29,8 @@ class ShowOnceTags extends Tags
     public function __call($method, $args)
     {
     	list($ignored, $code) = explode(':', $this->tag);
+
+        $per = $this->getParamInt('per') ?: null;
         
         // if no code then do nothing and show everything;
         if (!$code)
@@ -63,7 +65,7 @@ class ShowOnceTags extends Tags
 				$record[$code] = time();
 
 				// record it
-				$this->cache->put($id, $record);
+				$this->cache->put($id, $record, $per);
 
             	// show it
             	return $this->parse([]);
@@ -77,7 +79,7 @@ class ShowOnceTags extends Tags
         	if (!$this->cookie->get($key))
         	{
         		// they're going to see it, so create the cookie
-        		$this->cookie->put($key, time());
+        		$this->cookie->put($key, time(), $per);
         		
         		// show it
     			return $this->parse([]);

@@ -15,6 +15,8 @@ If the visitor is logged in to your site, the visibility status will persist acr
 
 If they are not logged in, a cookie is used so they may see the content again if they view your site in a different browser/device.
 
+While this add-on defaults to forever, you may also specify a time period (in minutes) by specifying a `per` argument like this: `{{ show_once:foo per="1440" }}`.
+
 ## LICENSE
 
 [MIT License](http://emd.mit-license.org)
