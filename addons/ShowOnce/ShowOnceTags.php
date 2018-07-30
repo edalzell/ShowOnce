@@ -30,7 +30,7 @@ class ShowOnceTags extends Tags
     {
     	list($ignored, $code) = explode(':', $this->tag);
 
-        $per = $this->getParamInt('per') ?: null;
+        $per = $this->getParamInt('per') ? $this->getParamInt('per') : null;
         
         // if no code then do nothing and show everything;
         if (!$code)
