@@ -2,6 +2,6 @@ name: Show Once
 version: 1.0
 description: >
   Allows you to hide content from visitors if they've seen it already. i.e. only show them content one time.
-url: https://github.com/edalzell
+url: https://github.com/edalzell/statamic-show-once
 developer: Erin Dalzell
-developer_url: https://github.com/edalzell
+developer_url: https://silentzconsulting.com
